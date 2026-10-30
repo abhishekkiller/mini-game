@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="cyberpunk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>Arcade Blitz ⚡ Viral Mini-Games Collection</title>
+  <meta name="description" content="Addictive, fast, mobile-friendly mini-games. Challenge friends, beat high scores, and climb global leaderboards!">
+  <meta name="theme-color" content="#0b0c16">
+
+  <!-- OpenGraph Social Metadata -->
+  <meta property="og:title" content="Arcade Blitz ⚡ Play Viral Mini-Games Free">
+  <meta property="og:description" content="10 addictive mini-games you can understand in 5 seconds. Challenge friends and beat global high scores!">
+  <meta property="og:type" content="website">
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/games.css">
+
+  <!-- Google AdSense Placeholder (Production Ready) -->
+  <!-- 
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+  -->
+</head>
+<body>
+
+  <!-- App Header -->
+  <header class="app-header">
+    <div class="brand" id="brand-home-btn" title="Back to Lobby">
+      <div class="brand-logo">⚡</div>
+      <div class="brand-text">ARCADE BLITZ</div>
+      <span class="brand-tag">PRO</span>
+    </div>
+
+    <div class="header-actions">
+      <!-- Coins Balance -->
+      <div class="stat-pill coins" id="open-shop-pill" title="Arcade Coins • Click to Open Shop">
+        <span class="icon">🪙</span>
+        <span class="val" id="player-coins-val">100</span>
+      </div>
+
+      <!-- Daily Streak -->
+      <div class="stat-pill streak" id="open-streak-btn" title="Daily Streak • Click to Claim Daily Bonus">
+        <span class="icon">🔥</span>
+        <span class="val" id="player-streak-val">1</span>
+        <span class="lbl">Day</span>
+      </div>
+
+      <!-- Audio Mute/Unmute Toggle -->
+      <button class="icon-btn" id="audio-toggle-btn" title="Toggle Sound (Mute/Unmute)">
+        🔊
+      </button>
+
+      <!-- Player Profile / Nickname -->
+      <button class="icon-btn" id="profile-btn" title="Edit Profile">
+        👤
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Arcade Gallery -->
+  <main class="main-content" id="lobby-view">
+    
+    <!-- Hero / Daily Challenge of the Day -->
+    <section class="daily-banner" id="daily-banner">
+      <div class="daily-info">
+        <div class="daily-badge">
+          <span>🏆</span>
+          <span>DAILY FEATURED CHALLENGE • 2X COINS BONUS</span>
+        </div>
+        <h2 class="daily-title" id="daily-game-title">Tap Speed Blitz</h2>
+        <p class="daily-desc" id="daily-game-desc">Test your finger speed in today's 10-second sprint!</p>
+      </div>
+      <button class="daily-play-btn" id="daily-play-btn">
+        PLAY DAILY (2X 🪙)
+      </button>
+    </section>
+
+    <!-- Top Monetization Ad Slot (AdSense Banner Ready) -->
+    <aside class="ad-banner-slot" id="top-ad-slot">
+      <div class="ad-label">SPONSORED</div>
+      <div class="ad-content">🚀 Try Arcade Blitz VIP: Remove All Ads & Double Coin Rewards!</div>
+      <div class="ad-vip-cta" id="top-ad-vip-cta">Get VIP Pass</div>
+    </aside>
+
+    <!-- Category Filters & Search -->
+    <div class="browse-controls">
+      <div class="category-tabs" id="category-tabs">
+        <button class="tab-btn active" data-category="all">🎮 All Games (10)</button>
+        <button class="tab-btn" data-category="reflex">⚡ Fast Reflex</button>
+        <button class="tab-btn" data-category="brain">🧠 Brain & Memory</button>
+        <button class="tab-btn" data-category="arcade">🕹️ Classic Arcade</button>
+      </div>
+
+      <div class="search-box">
+        <span class="search-icon">🔍</span>
+        <input type="text" class="search-input" id="search-input" placeholder="Search mini-games..." aria-label="Search Games">
+      </div>
+    </div>
+
+    <!-- 10 Mini-Games Gallery Grid -->
+    <div class="games-grid" id="games-grid">
+      <!-- Injected dynamically by app.js -->
+    </div>
+
+    <!-- Quick Navigation Bar for Social & Meta -->
+    <div style="margin-top: 2rem; display: flex; flex-wrap: wrap; gap: 0.75rem; justify-content: center;">
+      <button class="secondary-btn" id="nav-leaderboard-btn">🏆 Global Leaderboard</button>
+      <button class="secondary-btn" id="nav-achievements-btn">🎖️ Achievements</button>
+      <button class="secondary-btn" id="nav-shop-btn">🎨 Themes & Coin Shop</button>
+      <button class="secondary-btn" id="nav-vip-btn">💎 VIP Ad-Free Pass</button>
+    </div>
+
+    <!-- Bottom Monetization Ad Slot -->
+    <aside class="ad-banner-slot" id="bottom-ad-slot" style="margin-top: 2.5rem;">
+      <div class="ad-label">SPONSORED</div>
+      <div class="ad-content">🎁 Watch 5s video to claim +100 Free Arcade Coins!</div>
+      <div class="ad-vip-cta" id="bottom-ad-reward-cta">Watch Ad (+100 🪙)</div>
+    </aside>
+  </main>
+
+  <!-- ==================== MODALS ==================== -->
+
+  <!-- 1. Active Game Screen Modal -->
+  <div class="modal-overlay" id="game-modal">
+    <div class="modal-box game-screen-modal">
+      <div class="modal-header">
+        <div class="modal-title" id="active-game-header-title">🎮 Playing Game</div>
+        <div style="display: flex; gap: 0.5rem; align-items: center;">
+          <button class="icon-btn" id="active-game-audio-btn" title="Toggle Sound">🔊</button>
+          <button class="modal-close-btn" id="active-game-exit-btn" title="Exit to Lobby">✕</button>
+        </div>
+      </div>
+      <div class="modal-body game-arena-wrapper" id="game-arena">
+        <!-- Active game dynamically mounted here -->
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. Game Over Modal -->
+  <div class="modal-overlay" id="game-over-modal">
+    <div class="modal-box">
+      <div class="modal-header">
+        <div class="modal-title" id="game-over-header-title">Game Over</div>
+        <button class="modal-close-btn" id="game-over-close-btn">✕</button>
+      </div>
+      <div class="modal-body game-over-view">
+        <div class="game-over-title">ROUND FINISHED!</div>
+        
+        <div class="game-over-score-card">
+          <div class="big-score" id="game-over-score">0</div>
+          <div class="score-unit" id="game-over-unit">POINTS</div>
+          <div id="game-over-record-badge" style="display: none;" class="new-record-pill">🔥 NEW PERSONAL BEST!</div>
+        </div>
+
+        <div class="roast-quote" id="game-over-roast">"Warming up your fingers!"</div>
+        <div id="game-over-sub" style="font-size: 0.9rem; color: var(--accent-cyan); margin-bottom: 1.25rem;"></div>
+
+        <div class="game-over-actions">
+          <button class="primary-btn" id="game-over-retry-btn">
+            <span>🔄 Play Again</span>
+          </button>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem;">
+            <button class="secondary-btn" id="game-over-share-btn">
+              <span>📸 Share Card</span>
+            </button>
+            <button class="secondary-btn" id="game-over-challenge-btn">
+              <span>⚔️ Challenge Friend</span>
+            </button>
+          </div>
+          <button class="secondary-btn" id="game-over-lobby-btn">
+            <span>🏠 Back to Lobby</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. Share Score Card Canvas Modal -->
+  <div class="modal-overlay" id="share-card-modal">
+    <div class="modal-box" style="max-width: 480px;">
+      <div class="modal-header">
+        <div class="modal-title">📸 Shareable Score Card</div>
+        <button class="modal-close-btn" id="share-card-close-btn">✕</button>
+      </div>
+      <div class="modal-body" style="text-align: center;">
+        <div id="share-card-preview-container" style="margin-bottom: 1rem; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.5);">
+          <!-- Dynamic Canvas injected here -->
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 0.65rem;">
+          <button class="primary-btn" id="share-card-native-btn">🚀 Share Score / Copy Link</button>
+          <button class="secondary-btn" id="share-card-download-btn">💾 Download Image (PNG)</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. Incoming Challenge Modal (When opened from a friend's link) -->
+  <div class="modal-overlay" id="challenge-received-modal">
+    <div class="modal-box">
+      <div class="modal-header">
+        <div class="modal-title">⚔️ Friend Challenge Received!</div>
+        <button class="modal-close-btn" id="challenge-modal-close-btn">✕</button>
+      </div>
+      <div class="modal-body" style="text-align: center;">
+        <div style="font-size: 3.5rem; margin-bottom: 0.5rem;">🥊</div>
+        <h3 style="font-size: 1.4rem; font-weight: 900; margin-bottom: 0.5rem;" id="challenger-name-text">Alex challenged you!</h3>
+        <p style="color: var(--text-secondary); margin-bottom: 1.25rem;">
+          Can you beat their record of <strong style="color: var(--accent-cyan); font-size: 1.2rem;" id="challenger-score-text">85</strong> in <strong id="challenger-game-name">Tap Speed</strong>?
+        </p>
+        <button class="primary-btn" id="accept-challenge-btn">🔥 ACCEPT CHALLENGE NOW</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5. Leaderboard Modal -->
+  <div class="modal-overlay" id="leaderboard-modal">
+    <div class="modal-box" style="max-width: 580px;">
+      <div class="modal-header">
+        <div class="modal-title">🏆 Global Arcade Leaderboard</div>
+        <div style="display: flex; gap: 0.5rem;">
+          <button class="icon-btn" id="db-config-open-btn" title="Configure Supabase/Firebase">⚙️</button>
+          <button class="modal-close-btn" id="leaderboard-close-btn">✕</button>
+        </div>
+      </div>
+      <div class="modal-body">
+        <!-- Game Selector Dropdown -->
+        <div style="margin-bottom: 1rem;">
+          <label style="font-size: 0.8rem; font-weight: 700; color: var(--text-muted); display: block; margin-bottom: 0.4rem;">SELECT MINI-GAME:</label>
+          <select id="leaderboard-game-select" style="width: 100%; background: var(--bg-card); color: #fff; border: 1px solid var(--border-color); padding: 0.65rem; border-radius: var(--radius-md); font-weight: 700; outline: none;">
+            <!-- Injected by app.js -->
+          </select>
+        </div>
+
+        <!-- Leaderboard Table -->
+        <div id="leaderboard-list-container" style="display: flex; flex-direction: column; gap: 0.5rem; max-height: 380px; overflow-y: auto;">
+          <!-- Injected rows -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6. Remote Database Configuration Modal (Supabase & Firebase) -->
+  <div class="modal-overlay" id="db-config-modal">
+    <div class="modal-box">
+      <div class="modal-header">
+        <div class="modal-title">⚙️ Remote Database Sync</div>
+        <button class="modal-close-btn" id="db-config-close-btn">✕</button>
+      </div>
+      <div class="modal-body">
+        <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 1rem;">
+          Connect Supabase or Firebase to sync real-time leaderboards across multiple devices and players worldwide!
+        </p>
+
+        <div style="margin-bottom: 1rem;">
+          <label style="font-size: 0.8rem; font-weight: 700; color: var(--text-muted); display: block; margin-bottom: 0.3rem;">DATABASE PROVIDER:</label>
+          <select id="db-provider-select" style="width: 100%; background: var(--bg-card); color: #fff; border: 1px solid var(--border-color); padding: 0.6rem; border-radius: var(--radius-md); font-weight: 700;">
+            <option value="mock">Simulated Global Community (Offline / Instant)</option>
+            <option value="supabase">Supabase (Live Online Database)</option>
+          </select>
+        </div>
+
+        <div id="supabase-fields" style="display: none; margin-bottom: 1rem;">
+          <div style="margin-bottom: 0.75rem;">
+            <label style="font-size: 0.75rem; font-weight: 700; color: var(--text-muted); display: block; margin-bottom: 0.2rem;">SUPABASE URL:</label>
+            <input type="text" id="supabase-url-input" class="search-input" placeholder="https://your-project.supabase.co" style="padding-left: 0.85rem;">
+          </div>
+          <div>
+            <label style="font-size: 0.75rem; font-weight: 700; color: var(--text-muted); display: block; margin-bottom: 0.2rem;">ANON PUBLIC KEY:</label>
+            <input type="password" id="supabase-key-input" class="search-input" placeholder="eyJh..." style="padding-left: 0.85rem;">
+          </div>
+        </div>
+
+        <button class="primary-btn" id="db-save-btn" style="width: 100%;">Save & Connect Database</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 7. Shop & Themes Modal -->
+  <div class="modal-overlay" id="shop-modal">
+    <div class="modal-box">
+      <div class="modal-header">
+        <div class="modal-title">🎨 Themes & Arcade Shop</div>
+        <button class="modal-close-btn" id="shop-close-btn">✕</button>
+      </div>
+      <div class="modal-body">
+        <div style="display: flex; align-items: center; justify-content: space-between; background: rgba(255, 215, 0, 0.1); border: 1px solid rgba(255, 215, 0, 0.3); padding: 0.85rem; border-radius: var(--radius-md); margin-bottom: 1.25rem;">
+          <div>
+            <div style="font-size: 0.75rem; color: var(--text-muted); font-weight: 700;">YOUR COINS BALANCE:</div>
+            <div style="font-size: 1.4rem; font-weight: 900; color: var(--accent-yellow);" id="shop-coins-display">🪙 100</div>
+          </div>
+          <button class="play-action-btn" id="shop-free-coins-btn">
+            <span>📺 Free +100 Coins</span>
+          </button>
+        </div>
+
+        <h4 style="font-size: 0.95rem; font-weight: 800; margin-bottom: 0.75rem; color: var(--text-secondary);">UNLOCKABLE ARCADE THEMES</h4>
+        <div id="themes-list-container" style="display: flex; flex-direction: column; gap: 0.75rem;">
+          <!-- Injected by app.js -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 8. Achievements Modal -->
+  <div class="modal-overlay" id="achievements-modal">
+    <div class="modal-box">
+      <div class="modal-header">
+        <div class="modal-title">🎖️ Player Achievements</div>
+        <button class="modal-close-btn" id="achievements-close-btn">✕</button>
+      </div>
+      <div class="modal-body">
+        <div id="achievements-list-container" style="display: flex; flex-direction: column; gap: 0.75rem; max-height: 420px; overflow-y: auto;">
+          <!-- Injected by app.js -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 9. Edit Profile Modal -->
+  <div class="modal-overlay" id="profile-modal">
+    <div class="modal-box" style="max-width: 400px;">
+      <div class="modal-header">
+        <div class="modal-title">👤 Player Nickname</div>
+        <button class="modal-close-btn" id="profile-close-btn">✕</button>
+      </div>
+      <div class="modal-body">
+        <label style="font-size: 0.8rem; font-weight: 700; color: var(--text-muted); display: block; margin-bottom: 0.4rem;">CHOOSE DISPLAY NAME:</label>
+        <input type="text" id="profile-name-input" class="search-input" maxlength="16" placeholder="Your Arcade Tag" style="padding-left: 0.85rem; font-weight: 800; font-size: 1.1rem; margin-bottom: 1rem;">
+        <button class="primary-btn" id="profile-save-btn" style="width: 100%;">Save Nickname</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 10. Rewarded Ad Modal (Simulator) -->
+  <div class="modal-overlay" id="rewarded-ad-modal">
+    <div class="modal-box" style="max-width: 440px; text-align: center;">
+      <div class="modal-header">
+        <div class="modal-title">🎁 Rewarded Video Ad</div>
+      </div>
+      <div class="modal-body" style="padding: 2rem 1.25rem;">
+        <div style="font-size: 3.5rem; margin-bottom: 0.75rem;">🎬</div>
+        <h3 style="font-size: 1.3rem; font-weight: 900; margin-bottom: 0.5rem;">Sponsor Spotlight</h3>
+        <p style="color: var(--text-secondary); margin-bottom: 1.5rem;" id="reward-ad-desc">Watch 5 seconds to claim your reward!</p>
+
+        <!-- Video Progress Bar -->
+        <div style="width: 100%; height: 10px; background: rgba(255,255,255,0.1); border-radius: 5px; overflow: hidden; margin-bottom: 1.5rem;">
+          <div id="reward-ad-progress" style="width: 0%; height: 100%; background: linear-gradient(90deg, var(--accent-cyan), #00e676); transition: width 1s linear;"></div>
+        </div>
+
+        <button class="primary-btn" id="reward-ad-close" disabled style="width: 100%;">Reward in 5s...</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 11. Interstitial Ad Modal (Simulator) -->
+  <div class="modal-overlay" id="interstitial-ad-modal">
+    <div class="modal-box" style="max-width: 420px; text-align: center;">
+      <div class="modal-header">
+        <div class="modal-title">⚡ ARCADE BLITZ SPONSOR</div>
+      </div>
+      <div class="modal-body" style="padding: 2.2rem 1.25rem;">
+        <div style="font-size: 3.2rem; margin-bottom: 0.75rem;">🎮</div>
+        <h3 style="font-size: 1.25rem; font-weight: 900; margin-bottom: 0.5rem;">Upgrade to VIP Pass</h3>
+        <p style="color: var(--text-secondary); margin-bottom: 1.5rem;">Remove all interstitial ads forever and get permanent 2x coins boost!</p>
+        <button class="secondary-btn" id="interstitial-skip-btn" disabled style="width: 100%;">Skip in 3s</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 12. VIP Pass Modal -->
+  <div class="modal-overlay" id="vip-modal">
+    <div class="modal-box">
+      <div class="modal-header">
+        <div class="modal-title">💎 Arcade Blitz VIP Pass</div>
+        <button class="modal-close-btn" id="vip-close-btn">✕</button>
+      </div>
+      <div class="modal-body" style="text-align: center;">
+        <div style="font-size: 3.5rem; margin-bottom: 0.5rem;">👑</div>
+        <h3 style="font-size: 1.4rem; font-weight: 900; margin-bottom: 0.5rem;">Unlock the Ultimate Experience</h3>
+        <ul style="text-align: left; list-style: none; display: flex; flex-direction: column; gap: 0.75rem; margin: 1.25rem 0; background: rgba(255,255,255,0.04); padding: 1rem; border-radius: var(--radius-md);">
+          <li>✨ <strong>Zero Advertisements</strong> (No banners, no interstitials)</li>
+          <li>🪙 <strong>Permanent 2x Coins Boost</strong> on every game</li>
+          <li>👑 <strong>Exclusive Royal VIP Badge</strong> in Leaderboards</li>
+          <li>🎁 <strong>Free Instant Revives</strong> without watching video ads</li>
+        </ul>
+
+        <div style="display: flex; flex-direction: column; gap: 0.65rem;">
+          <button class="primary-btn" id="vip-toggle-btn">Toggle VIP Pass (Free Test / 500 Coins)</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Container -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <!-- Master ES Module Entry -->
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,25 @@
+{
+  "name": "arcade-blitz",
+  "version": "1.0.0",
+  "description": "Viral Mini-Games Arcade Collection - Addictive, Mobile-Friendly, Social-First Web Games",
+  "main": "index.html",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "serve": "npx serve ."
+  },
+  "keywords": [
+    "games",
+    "mini-games",
+    "arcade",
+    "viral",
+    "mobile-gaming",
+    "html5-games"
+  ],
+  "author": "Arcade Blitz Studios",
+  "license": "MIT",
+  "devDependencies": {
+    "vite": "^6.0.0"
+  }
+}
